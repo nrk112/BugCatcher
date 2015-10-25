@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:BugCatcher"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
+    
     <Grid x:Name="mainGrid">
         
     </Grid>

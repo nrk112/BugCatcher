@@ -64,7 +64,11 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="GameEngine.cs" />
-    <Compile Include="GameObjects\GameObject.cs" />
+    <Compile Include="BaseClasses\GameObject.cs" />
+    <Compile Include="BaseClasses\GameText.cs" />
+    <Compile Include="GameObjects\BonusText.cs" />
+    <Compile Include="GameObjects\HiScoreText.cs" />
+    <Compile Include="Global.cs" />
     <Compile Include="Interfaces\IGameObject.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

@@ -21,7 +21,6 @@ namespace BugCatcher
 
         private GameEngine()
         {
-            InitializeEngine();
         }
 
         public static GameEngine Instance
@@ -35,6 +34,7 @@ namespace BugCatcher
                         if (instance == null)
                             instance = new GameEngine();
                     }
+                    instance.InitializeEngine();
                 }
                 return instance;
             }
@@ -44,24 +44,26 @@ namespace BugCatcher
         DispatcherTimer framerateTimer = new DispatcherTimer();
         List<IGameObject> gameObjects = new List<IGameObject>();
 
-        public Canvas canvas { get; private set; }
+        public Canvas canvas { get; set; }
 
         private bool isGameOver = false;
         private int FPS = 30;
         private int round = 0;
         private int score = 0;
-        private int bonusMultiplier = 0;
-        private int numberOfEnemies = 10;
+
+        public static BonusText bonusText;
+        public int BonusMultiplier { get; set; }
 
         /// <summary>
         /// Sets the initial settings for the game engine.
         /// </summary>
         public void InitializeEngine()
         {
-            canvas = MainWindow.canvas;
+            canvas = Global.canvas;
             framerateTimer.Interval = new TimeSpan(0, 0, 0, 0, GetMSFromFPS());
             framerateTimer.Start();
             framerateTimer.Tick += timer_Tick;
+            InitializeGame();
         }
 
         /// <summary>
@@ -80,8 +82,7 @@ namespace BugCatcher
         {
             round = 0;
             score = 0;
-            bonusMultiplier = 0;
-            numberOfEnemies = 10;
+            BonusMultiplier = 1;
             SetUpAllGameObjects();
         }
 
@@ -102,6 +103,7 @@ namespace BugCatcher
         {
             round++;
             isGameOver = false;
+            bonusText = new BonusText();
         }
 
         /// <summary>
