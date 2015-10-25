@@ -57,7 +57,25 @@ namespace BugCatcher.BaseClasses
             MainWindow.canvas.Children.Add(_element);
             GameEngine.Instance.AddToDisplayList(this);
         }
-        
+
+        protected int GridSize { get; set; }
+
+        protected int GridPositionX
+        {
+            set
+            {
+                X = (MainWindow.canvas.Width / GridSize) * value;
+            }
+        }
+
+        protected int GridPositionY
+        {
+            set
+            {
+                Y = (MainWindow.canvas.Width / GridSize) * value;
+            }
+        }
+
 
 
 
@@ -163,32 +181,6 @@ namespace BugCatcher.BaseClasses
             set
             {
                 translateTransform.Y = value - Height / 2.0;
-            }
-        }
-
-        public double _dX;
-        public double _dY;
-        public double dX
-        {
-            get
-            {
-                return _dX;
-            }
-            set
-            {
-                _dX = value;
-            }
-        }
-
-        public double dY
-        {
-            get
-            {
-                return _dY;
-            }
-            set
-            {
-                _dY = value;
             }
         }
     }

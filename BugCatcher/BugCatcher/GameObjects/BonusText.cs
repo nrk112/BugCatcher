@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace BugCatcher.GameObjects
@@ -13,11 +14,9 @@ namespace BugCatcher.GameObjects
             textBlock.TextAlignment = TextAlignment.Center;
             textBlock.FontSize = 50;
 
-            Y = 100.0;
-            X = (MainWindow.canvas.Width / 10) * 8;
-
-            dX = 0.0;
-            dY = 0.0;
+            GridSize = 40;
+            GridPositionX = 35;
+            GridPositionY = 2; 
 
             Scale = 1;
 

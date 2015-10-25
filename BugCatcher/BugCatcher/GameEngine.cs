@@ -2,13 +2,6 @@
 using BugCatcher.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace BugCatcher
@@ -50,7 +43,10 @@ namespace BugCatcher
         private int score = 0;
 
         public static BonusText bonusText;
+        public static HiScoreText hiScoreText;
+
         public int BonusMultiplier = 0;
+        public int HighScore = 0; 
 
         /// <summary>
         /// Sets the initial settings for the game engine.
@@ -102,6 +98,7 @@ namespace BugCatcher
 
             isGameOver = false;
             bonusText = new BonusText();
+            hiScoreText = new HiScoreText();
         }
 
         /// <summary>
