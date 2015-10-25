@@ -11,15 +11,15 @@ namespace BugCatcher.GameObjects
             textBlock.Height = 100.0;
             textBlock.Width = 1000.0;
             textBlock.TextAlignment = TextAlignment.Center;
-            textBlock.FontSize = 100;
+            textBlock.FontSize = 50;
 
             Y = 100.0;
-            X = (GameEngine.Instance.canvas.ActualWidth / 10) * 8;
+            X = (MainWindow.canvas.Width / 10) * 8;
 
             dX = 0.0;
             dY = 0.0;
 
-            Scale = 0.5;
+            Scale = 1;
 
             textBlock.Foreground = Brushes.Black;
             AddToGame();

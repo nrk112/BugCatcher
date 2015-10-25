@@ -44,22 +44,19 @@ namespace BugCatcher
         DispatcherTimer framerateTimer = new DispatcherTimer();
         List<IGameObject> gameObjects = new List<IGameObject>();
 
-        public Canvas canvas { get; set; }
-
         private bool isGameOver = false;
         private int FPS = 30;
         private int round = 0;
         private int score = 0;
 
         public static BonusText bonusText;
-        public int BonusMultiplier { get; set; }
+        public int BonusMultiplier = 0;
 
         /// <summary>
         /// Sets the initial settings for the game engine.
         /// </summary>
         public void InitializeEngine()
         {
-            canvas = Global.canvas;
             framerateTimer.Interval = new TimeSpan(0, 0, 0, 0, GetMSFromFPS());
             framerateTimer.Start();
             framerateTimer.Tick += timer_Tick;
@@ -102,6 +99,7 @@ namespace BugCatcher
         public void SetUpAllGameObjects(bool isFirstTime = false)
         {
             round++;
+
             isGameOver = false;
             bonusText = new BonusText();
         }
@@ -113,10 +111,11 @@ namespace BugCatcher
         /// <param name="e"></param>
         void timer_Tick(object sender, EventArgs e)
         {
+            BonusMultiplier++;
             foreach (IGameObject obj in gameObjects)
             {
                 obj.Update();
             }
         }
     }
-}
+} 

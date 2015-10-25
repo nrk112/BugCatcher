@@ -9,6 +9,7 @@ namespace BugCatcher
 {
     static class Global
     {
-        public static Canvas canvas { get; set; }
+        //public static Canvas canvas { get; set; }
+        public static GameEngine gameEngine = GameEngine.Instance;
     }
 }

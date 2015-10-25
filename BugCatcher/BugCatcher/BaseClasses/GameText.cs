@@ -7,6 +7,8 @@ namespace BugCatcher.BaseClasses
         public GameText() : base()
         {
             TextBlock textBlock = new TextBlock();
+            textBlock.Width = 10;
+            textBlock.Height = 10;
             Element = textBlock;
         }
 

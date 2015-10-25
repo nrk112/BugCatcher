@@ -21,7 +21,6 @@ namespace BugCatcher.BaseClasses
                 _element = value;
                 InitializeTransformGroup();
                 _element.RenderTransform = transformGroup;
-                GameEngine.Instance.canvas.Children.Add(_element);
             }
         }
 
@@ -37,13 +36,10 @@ namespace BugCatcher.BaseClasses
 
             translateTransform = new TranslateTransform();
 
-            rotateTransform = new RotateTransform();
-
             transformGroup = new TransformGroup();
             transformGroup.Children.Add(rotateTransform);
             transformGroup.Children.Add(scaleTransform);
             transformGroup.Children.Add(translateTransform);
-            transformGroup.Children.Add(rotateTransform);
         }
 
         protected RotateTransform rotateTransform { get; set; }
@@ -58,15 +54,10 @@ namespace BugCatcher.BaseClasses
 
         protected void AddToGame()
         {
-            //GameEngine.Instance.canvas.Children.Add(_element);
+            MainWindow.canvas.Children.Add(_element);
             GameEngine.Instance.AddToDisplayList(this);
         }
-
-
-
-
-
-
+        
 
 
 
@@ -76,7 +67,6 @@ namespace BugCatcher.BaseClasses
 
 
         private double _Scale;
-
         public double Scale
         {
             get
@@ -90,6 +80,7 @@ namespace BugCatcher.BaseClasses
                 scaleTransform.ScaleY = value;
             }
         }
+
         public double Angle
         {
             get

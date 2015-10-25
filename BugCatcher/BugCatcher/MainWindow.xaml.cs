@@ -21,7 +21,7 @@ namespace BugCatcher
     public partial class MainWindow : Window
     {
 
-        public Canvas canvas { get; set; }
+        public static Canvas canvas { get; set; }
         public GameEngine gameEngine;
 
         public MainWindow()
@@ -42,7 +42,6 @@ namespace BugCatcher
             canvas.Width = mainGrid.Width;
 
             mainGrid.Children.Add(canvas);
-            Global.canvas = canvas;
             gameEngine = GameEngine.Instance;
         }
     }
