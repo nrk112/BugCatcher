@@ -38,7 +38,7 @@ namespace BugCatcher
         List<IGameObject> gameObjects = new List<IGameObject>();
 
         private bool isGameOver = false;
-        private int FPS = 30;
+        private int FPS = 60;
         private int round = 0;
         private int score = 0;
 
@@ -99,6 +99,10 @@ namespace BugCatcher
             isGameOver = false;
             bonusText = new BonusText();
             hiScoreText = new HiScoreText();
+            for (int i = 0; i < 10; i++)
+            {
+                new Enemy();
+            }
         }
 
         /// <summary>

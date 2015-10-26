@@ -2,6 +2,8 @@
 using BugCatcher.Interfaces;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 
 namespace BugCatcher.BaseClasses
 {
@@ -75,6 +77,30 @@ namespace BugCatcher.BaseClasses
                 Y = (MainWindow.canvas.Width / GridSize) * value;
             }
         }
+
+        public void UseImage(string imageFileName, BitmapImage b)
+        {
+            if (b == null)
+            {
+                b = new BitmapImage();
+                //G.CheckForAlternateContentDir(imageFileName);
+
+                b.BeginInit();
+                b.UriSource = new Uri("images/" + imageFileName, UriKind.Relative);
+                b.EndInit();
+            }
+
+            //TODO: make images scale based on screen size.
+            Image baseElement = new Image();
+            baseElement.Source = b;
+            baseElement.Stretch = Stretch.Fill;
+            baseElement.Height = b.Height;
+            baseElement.Width = b.Width;
+            Element = baseElement;
+        }
+
+        public double dX { get; set; }
+        public double dY { get; set; }
 
 
 

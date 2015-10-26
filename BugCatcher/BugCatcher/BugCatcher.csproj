@@ -67,6 +67,7 @@
     <Compile Include="BaseClasses\GameObject.cs" />
     <Compile Include="BaseClasses\GameText.cs" />
     <Compile Include="GameObjects\BonusText.cs" />
+    <Compile Include="GameObjects\Enemy.cs" />
     <Compile Include="GameObjects\HiScoreText.cs" />
     <Compile Include="Global.cs" />
     <Compile Include="Interfaces\IGameObject.cs" />

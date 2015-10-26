@@ -10,6 +10,7 @@ namespace BugCatcher
     static class Global
     {
         //public static Canvas canvas { get; set; }
-        public static GameEngine gameEngine = GameEngine.Instance;
+        //public static readonly GameEngine gameEngine = GameEngine.Instance;
+        public static readonly Random rand = new Random();
     }
 }
