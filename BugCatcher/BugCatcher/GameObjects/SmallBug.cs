@@ -30,8 +30,9 @@ namespace BugCatcher.GameObjects
                 SetStartingPosition();
                 isHit = false;
             }
-            else if (X + this.Width < 0)
+            else if (X < -Width)
             {
+                SetStartingPosition();
                 if (GameEngine.player != null)
                     GameEngine.player.Misses++;
             }
