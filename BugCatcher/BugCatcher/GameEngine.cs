@@ -39,13 +39,16 @@ namespace BugCatcher
 
         private bool isGameOver = false;
         private int FPS = 60;
-        private int round = 0;
+        private int level = 0;
         private int score = 0;
+        private int misses = 0;
+        private int perfectCatches = 0;
 
         public static BonusText bonusText;
         public static HiScoreText hiScoreText;
+        public static Catcher player;
 
-        public int BonusMultiplier = 0;
+        public int BonusMultiplier = 1;
         public int HighScore = 0; 
 
         /// <summary>
@@ -73,8 +76,9 @@ namespace BugCatcher
         /// </summary>
         private void InitializeGame()
         {
-            round = 0;
+            level = 0;
             score = 0;
+            misses = 0;
             BonusMultiplier = 1;
             SetUpAllGameObjects();
         }
@@ -94,14 +98,33 @@ namespace BugCatcher
         /// <param name="isFirstTime"></param>
         public void SetUpAllGameObjects(bool isFirstTime = false)
         {
-            round++;
+            level++;
 
             isGameOver = false;
             bonusText = new BonusText();
             hiScoreText = new HiScoreText();
             for (int i = 0; i < 10; i++)
             {
-                new Enemy();
+                new SmallBug();
+            }
+
+            player = new Catcher();
+        }
+
+        /// <summary>
+        /// Increases the score based on the current bonus.
+        /// </summary>
+        /// <param name="amount"></param>
+        public void IncreaseScore(int amount = 1)
+        {
+            score += amount * BonusMultiplier;
+        }
+
+        private void CalculateBonus()
+        {
+            if (perfectCatches % Global.catchesToGrow == 0)
+            {
+
             }
         }
 
@@ -112,7 +135,6 @@ namespace BugCatcher
         /// <param name="e"></param>
         void timer_Tick(object sender, EventArgs e)
         {
-            BonusMultiplier++;
             foreach (IGameObject obj in gameObjects)
             {
                 obj.Update();
