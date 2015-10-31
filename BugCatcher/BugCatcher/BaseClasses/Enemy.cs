@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace BugCatcher.GameObjects
+namespace BugCatcher.BaseClasses
 {
-    abstract class Enemy : BaseClasses.GameObject
+    abstract class Enemy : GameObject
     {
         protected double friction = 1.0;
         protected int speed;
@@ -17,6 +17,7 @@ namespace BugCatcher.GameObjects
 
         public static List<Enemy> list = new List<Enemy>();
         public bool isHit { get; set; }
+        public int Level { get; set; }
 
         public Enemy()
         {
@@ -32,6 +33,11 @@ namespace BugCatcher.GameObjects
                 X = MainWindow.canvas.Width + this.Width;
             else if (startSide == StartSide.Left)
                 X = -this.Width;
+        }
+
+        protected void GetNewSpeed()
+        {
+            speed = Global.rand.Next(Global.EnemySlowSpeed, Global.EnemyFastSpeed);
         }
     }
 }

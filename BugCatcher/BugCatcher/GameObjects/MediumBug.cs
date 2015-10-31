@@ -7,18 +7,18 @@ using System.Windows.Media.Imaging;
 
 namespace BugCatcher.GameObjects
 {
-    class SmallBug : BaseClasses.Enemy
+    class MediumBug : BaseClasses.Enemy
     {
         private static BitmapImage bitMap = null;
 
-        public SmallBug()
+        public MediumBug()
         {
-            UseImage(Global.SmallBugImage, bitMap);
+            UseImage(Global.MediumBugImage, bitMap);
             startSide = StartSide.Right;
             SetStartingPosition();
-            Scale = 0.3;
+            Scale = 0.5;
             isHit = false;
-            Level = 1;
+            Level = 2;
             GetNewSpeed();
             list.Add(this);
             AddToGame();

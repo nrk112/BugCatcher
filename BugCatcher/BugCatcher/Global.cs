@@ -16,7 +16,9 @@ namespace BugCatcher
         public static int catchesToGrow = 20;
         public static double maxPlayerScaleSize = 2.0;
         public static string playerImage = "basket.png";
-        public static string enemyImage = "bug1.png";
+        public static string SmallBugImage = "bug1.png";
+        public static string MediumBugImage = "beetle_hot.png";
+        public static string FlyingBugImage = "bee_big-nose.png";
 
         /// <summary>
         /// The slowest speed an enemy may use.

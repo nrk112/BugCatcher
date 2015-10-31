@@ -68,8 +68,11 @@
     <Compile Include="BaseClasses\GameText.cs" />
     <Compile Include="GameObjects\BonusText.cs" />
     <Compile Include="GameObjects\Catcher.cs" />
-    <Compile Include="GameObjects\Enemy.cs" />
+    <Compile Include="BaseClasses\Enemy.cs" />
+    <Compile Include="GameObjects\FlyingBug.cs" />
     <Compile Include="GameObjects\HiScoreText.cs" />
+    <Compile Include="GameObjects\MediumBug.cs" />
+    <Compile Include="GameObjects\ScoreText.cs" />
     <Compile Include="GameObjects\SmallBug.cs" />
     <Compile Include="Global.cs" />
     <Compile Include="Interfaces\IGameObject.cs" />

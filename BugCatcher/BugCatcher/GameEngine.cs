@@ -40,16 +40,17 @@ namespace BugCatcher
         private bool isGameOver = false;
         private int FPS = 60;
         private int level = 0;
-        private int score = 0;
         private int misses = 0;
         private int perfectCatches = 0;
 
         public static BonusText bonusText;
         public static HiScoreText hiScoreText;
+        public static ScoreText scoreText;
         public static Catcher player;
 
         public int BonusMultiplier = 1;
         public int HighScore = 0; 
+        public int Score { get; private set; }
 
         /// <summary>
         /// Sets the initial settings for the game engine.
@@ -77,7 +78,7 @@ namespace BugCatcher
         private void InitializeGame()
         {
             level = 0;
-            score = 0;
+            Score = 0;
             misses = 0;
             BonusMultiplier = 1;
             SetUpAllGameObjects();
@@ -103,10 +104,20 @@ namespace BugCatcher
             isGameOver = false;
             bonusText = new BonusText();
             hiScoreText = new HiScoreText();
+            scoreText = new ScoreText();
+
+
             for (int i = 0; i < 10; i++)
             {
                 new SmallBug();
             }
+
+
+            for (int i = 0; i < 2; i++)
+            {
+                new MediumBug();
+            }
+            new FlyingBug();
 
             player = new Catcher();
         }
@@ -117,15 +128,20 @@ namespace BugCatcher
         /// <param name="amount"></param>
         public void IncreaseScore(int amount = 1)
         {
-            score += amount * BonusMultiplier;
+            Score += amount * BonusMultiplier;
         }
 
-        private void CalculateBonus()
+        public void IncreaseBonus(int amount = 1)
         {
-            if (perfectCatches % Global.catchesToGrow == 0)
-            {
+            if (BonusMultiplier == 1)
+                BonusMultiplier++;
+            else
+                BonusMultiplier = (int)Math.Pow(BonusMultiplier, 2);
+        }
 
-            }
+        public void ClearBonus()
+        {
+            BonusMultiplier = 1;
         }
 
         /// <summary>

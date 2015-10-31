@@ -7,18 +7,18 @@ using System.Windows.Media.Imaging;
 
 namespace BugCatcher.GameObjects
 {
-    class SmallBug : BaseClasses.Enemy
+    class FlyingBug : BaseClasses.Enemy
     {
         private static BitmapImage bitMap = null;
 
-        public SmallBug()
+        public FlyingBug()
         {
-            UseImage(Global.SmallBugImage, bitMap);
+            UseImage(Global.FlyingBugImage, bitMap);
             startSide = StartSide.Right;
             SetStartingPosition();
-            Scale = 0.3;
+            Scale = 0.5;
             isHit = false;
-            Level = 1;
+            Level = 3;
             GetNewSpeed();
             list.Add(this);
             AddToGame();
@@ -48,8 +48,24 @@ namespace BugCatcher.GameObjects
                 dY *= friction;
 
                 X -= dX;
-                Y += dY;
+                Y = GetYFromSin(X) + Y;
             }
+        }
+
+        private int amplitutde = 6;
+        private double GetYFromSin(double angle)
+        {
+            //Normalize x
+            angle = angle % 360;
+
+            //Convert to radians
+            angle = angle * Math.PI / 180;
+
+            //Adjust period
+            //angle = angle * period;
+
+            //calculate y 
+            return (amplitutde * Math.Sin(angle));
         }
     }
 }
