@@ -3,38 +3,54 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace BugCatcher.GameObjects
 {
-    class SmallBug : BaseClasses.Enemy
+    class Firetruck : BaseClasses.Enemy
     {
         private static BitmapImage bitMap = null;
+        private double speedMultiplier = 3.0;
+        private MediaPlayer honkSound = new MediaPlayer();
 
-        public SmallBug()
+        public Firetruck()
         {
-            UseImage(Global.SmallBugImage, bitMap);
+            string fullFileName = System.IO.Directory.GetCurrentDirectory() + "\\honk.mp3";
+            Uri uriFile = new Uri(fullFileName);
+            honkSound.Open(uriFile);
+            honkSound.MediaEnded += new EventHandler(Media_Ended);
+
+            UseImage(Global.FiretruckImage, bitMap);
             SetStartingPosition(true);
-            Scale = 0.3;
+            Scale = 1.0;
             isHit = false;
-            Level = 1;
-            GetNewSpeed();
+            Level = 20;
+            GetNewSpeed(speedMultiplier);
             list.Add(this);
             AddToGame();
         }
 
+        private int waitCounter = 0;
         public override void Update()
         {
+            waitCounter++;
+
+            if (waitCounter < 250)
+                return;
+
             if (isHit)
             {
                 SetStartingPosition(true);
-                GetNewSpeed();
+                waitCounter = 0;
+                GetNewSpeed(speedMultiplier);
                 isHit = false;
             }
             else if (X < -Width && startSide == StartSide.Right)
             {
                 SetStartingPosition(true);
-                GetNewSpeed();
+                waitCounter = 0;
+                GetNewSpeed(speedMultiplier);
                 if (GameEngine.Instance.player != null)
                     GameEngine.Instance.player.Misses++;
             }
@@ -42,7 +58,8 @@ namespace BugCatcher.GameObjects
             else if (X > MainWindow.canvas.Width + this.Width && startSide == StartSide.Left)
             {
                 SetStartingPosition(true);
-                GetNewSpeed();
+                waitCounter = 0;
+                GetNewSpeed(speedMultiplier);
                 if (GameEngine.Instance.player != null)
                     GameEngine.Instance.player.Misses++;
             }
@@ -61,6 +78,21 @@ namespace BugCatcher.GameObjects
 
                 Y += dY;
             }
+        }
+
+        private bool soundLock = false;
+        public override void PlaySound()
+        {
+            if (soundLock)
+                return;
+            soundLock = true; 
+            honkSound.Stop();
+            honkSound.Play();
+        }
+
+        private void Media_Ended(object sender, EventArgs e)
+        {
+            soundLock = false;
         }
     }
 }

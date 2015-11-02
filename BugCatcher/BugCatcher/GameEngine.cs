@@ -2,6 +2,9 @@
 using BugCatcher.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Threading;
 
 namespace BugCatcher
@@ -36,6 +39,7 @@ namespace BugCatcher
 
         DispatcherTimer framerateTimer = new DispatcherTimer();
         List<IGameObject> gameObjects = new List<IGameObject>();
+        MediaPlayer music = new MediaPlayer();
 
         private bool isGameOver = false;
         private int FPS = 60;
@@ -43,10 +47,14 @@ namespace BugCatcher
         private int misses = 0;
         private int perfectCatches = 0;
 
-        public static BonusText bonusText;
-        public static HiScoreText hiScoreText;
-        public static ScoreText scoreText;
-        public static Catcher player;
+        public BonusText bonusText;
+        public HiScoreText hiScoreText;
+        public ScoreText scoreText;
+        public LevelText levelText;
+        public Catcher player
+        {
+            get; set;
+        }
 
         public int BonusMultiplier = 1;
         public int HighScore = 0; 
@@ -82,6 +90,7 @@ namespace BugCatcher
             misses = 0;
             BonusMultiplier = 1;
             SetUpAllGameObjects();
+            PlayMusic();
         }
 
         /// <summary>
@@ -101,10 +110,13 @@ namespace BugCatcher
         {
             level++;
 
+            new Background();
+
             isGameOver = false;
             bonusText = new BonusText();
             hiScoreText = new HiScoreText();
             scoreText = new ScoreText();
+            levelText = new LevelText();
 
 
             for (int i = 0; i < 10; i++)
@@ -113,11 +125,12 @@ namespace BugCatcher
             }
 
 
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 3; i++)
             {
                 new MediumBug();
             }
             new FlyingBug();
+            new Firetruck();
 
             player = new Catcher();
         }
@@ -131,12 +144,12 @@ namespace BugCatcher
             Score += amount * BonusMultiplier;
         }
 
-        public void IncreaseBonus(int amount = 1)
+        public void IncreaseBonus()
         {
             if (BonusMultiplier == 1)
                 BonusMultiplier++;
-            else
-                BonusMultiplier = (int)Math.Pow(BonusMultiplier, 2);
+            else if (BonusMultiplier <= 512)
+                BonusMultiplier = BonusMultiplier * 2;
         }
 
         public void ClearBonus()
@@ -155,6 +168,27 @@ namespace BugCatcher
             {
                 obj.Update();
             }
+        }
+
+        private void PlayMusic()
+        {
+            string fullFileName = System.IO.Directory.GetCurrentDirectory() + "\\" + Global.MusicFile;
+            Uri uriFile = new Uri(fullFileName);
+            music.Open(uriFile);
+            music.Volume = 0.2f;
+            music.MediaEnded += new EventHandler(Media_Ended);
+            music.Play();
+        }
+
+        /// <summary>
+        /// Restart background music
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Media_Ended(object sender, EventArgs e)
+        {
+            music.Position = TimeSpan.Zero;
+            music.Play();
         }
     }
 } 

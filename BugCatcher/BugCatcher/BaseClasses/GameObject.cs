@@ -83,8 +83,6 @@ namespace BugCatcher.BaseClasses
             if (b == null)
             {
                 b = new BitmapImage();
-                //G.CheckForAlternateContentDir(imageFileName);
-
                 b.BeginInit();
                 b.UriSource = new Uri("images/" + imageFileName, UriKind.Relative);
                 b.EndInit();
@@ -101,14 +99,6 @@ namespace BugCatcher.BaseClasses
 
         public double dX { get; set; }
         public double dY { get; set; }
-
-
-
-
-
-
-
-
 
         private double _Scale;
         public double Scale

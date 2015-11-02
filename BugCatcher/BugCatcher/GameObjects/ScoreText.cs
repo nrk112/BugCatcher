@@ -14,12 +14,12 @@ namespace BugCatcher.GameObjects
             textBlock.FontSize = 50;
 
             GridSize = 40;
-            GridPositionX = 2;
+            GridPositionX = 3;
             GridPositionY = 1;
 
             Scale = 1;
 
-            textBlock.Foreground = Brushes.Black;
+            textBlock.Foreground = Global.TextColor;
             AddToGame();
         }
 

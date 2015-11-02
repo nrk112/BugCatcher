@@ -14,11 +14,10 @@ namespace BugCatcher.GameObjects
         public FlyingBug()
         {
             UseImage(Global.FlyingBugImage, bitMap);
-            startSide = StartSide.Right;
-            SetStartingPosition();
+            SetStartingPosition(true);
             Scale = 0.5;
             isHit = false;
-            Level = 3;
+            Level = 10;
             GetNewSpeed();
             list.Add(this);
             AddToGame();
@@ -28,16 +27,25 @@ namespace BugCatcher.GameObjects
         {
             if (isHit)
             {
-                SetStartingPosition();
+                SetStartingPosition(true);
                 GetNewSpeed();
                 isHit = false;
             }
-            else if (X < -Width)
+            //If it goes off the screen on the left.
+            else if (X < -Width && startSide == StartSide.Right)
             {
-                SetStartingPosition();
+                SetStartingPosition(true);
                 GetNewSpeed();
-                if (GameEngine.player != null)
-                    GameEngine.player.Misses++;
+                if (GameEngine.Instance.player != null)
+                    GameEngine.Instance.player.Misses++;
+            }
+            //If it goes off the screen on the right.
+            else if (X > MainWindow.canvas.Width + this.Width && startSide == StartSide.Left)
+            {
+                SetStartingPosition(true);
+                GetNewSpeed();
+                if (GameEngine.Instance.player != null)
+                    GameEngine.Instance.player.Misses++;
             }
             else
             {
@@ -47,10 +55,17 @@ namespace BugCatcher.GameObjects
                 dX *= friction;
                 dY *= friction;
 
-                X -= dX;
+                if (startSide == StartSide.Right)
+                    X -= dX;
+                else if (startSide == StartSide.Left)
+                    X += dX;
+
                 Y = GetYFromSin(X) + Y;
+                powerup.SetXandY(X, (Y + this.Height / 5));
             }
         }
+
+        PowerUp powerup = new PowerUp();
 
         private int amplitutde = 6;
         private double GetYFromSin(double angle)

@@ -1,12 +1,11 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace BugCatcher.GameObjects
 {
-    public class BonusText : BaseClasses.GameText
+    public class LevelText : BaseClasses.GameText
     {
-        public BonusText() : base()
+        public LevelText() : base()
         {
             textBlock.FontFamily = new FontFamily("Arial Black");
             textBlock.Height = 100.0;
@@ -15,8 +14,8 @@ namespace BugCatcher.GameObjects
             textBlock.FontSize = 50;
 
             GridSize = 40;
-            GridPositionX = 5;
-            GridPositionY = 3; 
+            GridPositionX = 4;
+            GridPositionY = 2;
 
             Scale = 1;
 
@@ -26,7 +25,7 @@ namespace BugCatcher.GameObjects
 
         public override void Update()
         {
-            textBlock.Text = "Bonus Multiplier: " + GameEngine.Instance.BonusMultiplier.ToString();
+            textBlock.Text = "Player Level: " + GameEngine.Instance.player.Level;
         }
     }
 }

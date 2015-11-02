@@ -49,6 +49,10 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WpfAnimatedGif, Version=1.4.13.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WpfAnimatedGif.1.4.13\lib\net\WpfAnimatedGif.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -66,12 +70,16 @@
     <Compile Include="GameEngine.cs" />
     <Compile Include="BaseClasses\GameObject.cs" />
     <Compile Include="BaseClasses\GameText.cs" />
+    <Compile Include="GameObjects\Background.cs" />
     <Compile Include="GameObjects\BonusText.cs" />
     <Compile Include="GameObjects\Catcher.cs" />
     <Compile Include="BaseClasses\Enemy.cs" />
+    <Compile Include="GameObjects\Firetruck.cs" />
     <Compile Include="GameObjects\FlyingBug.cs" />
     <Compile Include="GameObjects\HiScoreText.cs" />
+    <Compile Include="GameObjects\LevelText.cs" />
     <Compile Include="GameObjects\MediumBug.cs" />
+    <Compile Include="GameObjects\PowerUp.cs" />
     <Compile Include="GameObjects\ScoreText.cs" />
     <Compile Include="GameObjects\SmallBug.cs" />
     <Compile Include="Global.cs" />
@@ -99,6 +107,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

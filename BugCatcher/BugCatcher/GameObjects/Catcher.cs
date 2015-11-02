@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace BugCatcher.GameObjects
@@ -12,9 +9,10 @@ namespace BugCatcher.GameObjects
     public class Catcher : BaseClasses.GameObject
     {
         private static BitmapImage bitmap = null;
-        private Point lastPosition = new Point();
         private Point mousePosition = new Point();
         private double startingScale = 0.5;
+        private MediaPlayer splatSound = new MediaPlayer();
+        private MediaPlayer levelDownSound = new MediaPlayer();
 
         public int Hits { get; set; }
         public int Misses { get; set; }
@@ -28,8 +26,15 @@ namespace BugCatcher.GameObjects
 
             UseImage(Global.playerImage, bitmap);
 
+            string fullFileName = System.IO.Directory.GetCurrentDirectory() + "\\splat.mp3";
+            Uri uriFile = new Uri(fullFileName);
+            splatSound.Open(uriFile);
+
+            fullFileName = System.IO.Directory.GetCurrentDirectory() + "\\splat.mp3";
+            uriFile = new Uri(fullFileName);
+            levelDownSound.Open(uriFile);
+
             mousePosition = Mouse.GetPosition(MainWindow.canvas);
-            //lastPosition = mousePosition;
             X = mousePosition.X;
             Y = mousePosition.Y;
             Scale = startingScale;
@@ -54,17 +59,34 @@ namespace BugCatcher.GameObjects
                     if (this.Level >= enemy.Level)
                     {
                         enemy.isHit = true;
+                        splatSound.Stop();
+                        splatSound.Play();
                         Hits++;
                         GameEngine.Instance.IncreaseScore();
-                        if (Hits % Global.catchesToGrow == 0 && Scale <= Global.maxPlayerScaleSize)
+
+                        if (Hits % Global.catchesToGrow == 0)
                         {
-                            Scale += 0.3;
-                            Level++;
                             GameEngine.Instance.IncreaseBonus();
+
+                            if (this.Level < Global.maxPlayerLevel)
+                                Level++;
+
+                            if (Scale <= Global.maxPlayerScaleSize)
+                                Scale += 0.3;
                         }
+
+                    }
+                    //Player hits a really strong enemy
+                    else if ((enemy.Level - this.Level) >= 10)
+                    {
+                        enemy.PlaySound();
+                        Scale = startingScale;
+                        Level = 1;
+                        Hits = 0;
+                        GameEngine.Instance.ClearBonus();
                     }
                     //Enemy is stronger than player
-                    else if (Scale > startingScale)
+                    else if (Scale > startingScale && this.Level < enemy.Level)
                     {
                         Scale -= 0.3;
                         Level--;

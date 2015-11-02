@@ -14,8 +14,7 @@ namespace BugCatcher.GameObjects
         public MediumBug()
         {
             UseImage(Global.MediumBugImage, bitMap);
-            startSide = StartSide.Right;
-            SetStartingPosition();
+            SetStartingPosition(true);
             Scale = 0.5;
             isHit = false;
             Level = 2;
@@ -28,16 +27,24 @@ namespace BugCatcher.GameObjects
         {
             if (isHit)
             {
-                SetStartingPosition();
+                SetStartingPosition(true);
                 GetNewSpeed();
                 isHit = false;
             }
-            else if (X < -Width)
+            else if (X < -Width && startSide == StartSide.Right)
             {
-                SetStartingPosition();
+                SetStartingPosition(true);
                 GetNewSpeed();
-                if (GameEngine.player != null)
-                    GameEngine.player.Misses++;
+                if (GameEngine.Instance.player != null)
+                    GameEngine.Instance.player.Misses++;
+            }
+            //If it goes off the screen on the right.
+            else if (X > MainWindow.canvas.Width + this.Width && startSide == StartSide.Left)
+            {
+                SetStartingPosition(true);
+                GetNewSpeed();
+                if (GameEngine.Instance.player != null)
+                    GameEngine.Instance.player.Misses++;
             }
             else
             {
@@ -47,7 +54,11 @@ namespace BugCatcher.GameObjects
                 dX *= friction;
                 dY *= friction;
 
-                X -= dX;
+                if (startSide == StartSide.Right)
+                    X -= dX;
+                else if (startSide == StartSide.Left)
+                    X += dX;
+
                 Y += dY;
             }
         }

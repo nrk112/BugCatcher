@@ -24,7 +24,7 @@ namespace BugCatcher.GameObjects
 
             Scale = 1;
 
-            textBlock.Foreground = Brushes.Black;
+            textBlock.Foreground = Global.TextColor;
             AddToGame();
         }
 

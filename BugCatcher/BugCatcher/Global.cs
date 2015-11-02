@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using BugCatcher.BaseClasses;
+using System.Windows.Media;
+using System.Media;
 
 namespace BugCatcher
 {
@@ -13,12 +15,21 @@ namespace BugCatcher
         #region game properties
         private static int enemySlowSpeed = 5;
         private static int enemyFastSpeed = 15;
+        private static SoundPlayer sp = new SoundPlayer();
+
+        public static int maxPlayerLevel = 10;
         public static int catchesToGrow = 20;
         public static double maxPlayerScaleSize = 2.0;
+        public static Brush TextColor = Brushes.Yellow;
         public static string playerImage = "basket.png";
         public static string SmallBugImage = "bug1.png";
         public static string MediumBugImage = "beetle_hot.png";
         public static string FlyingBugImage = "bee_big-nose.png";
+        public static string PowerUpImage = "present_12.png";
+        public static string FiretruckImage = "firetruck.png";
+        public static string BackgroundImage = @"C:\Users\nrk11\Documents\GitHub\BugCatcher\BugCatcher\BugCatcher\bin\Debug\Images\background.jpg";
+
+        public static string MusicFile = "music.mp3";
 
         /// <summary>
         /// The slowest speed an enemy may use.
@@ -40,6 +51,15 @@ namespace BugCatcher
             set { enemyFastSpeed = value; }
         }
 
+        public static void PlayMultipleSound(ref MediaPlayer mp, string filename)
+        {
+            mp.Open(new Uri(filename, UriKind.Relative));
+        }
+
+        public static void PlaySingleSound(string filename)
+        {
+            sp.SoundLocation = "";
+        }
 
         #endregion
         public static readonly Random rand = new Random();
